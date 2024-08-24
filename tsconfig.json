@@ -17,11 +17,17 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"],
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["app/core/*"],
+      "@utils/*": ["app/shared/utils/*"],
+      "@models/*": ["app/shared/models/*"],
+      "@injectors/*": ["app/shared/injectors/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

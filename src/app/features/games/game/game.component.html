@@ -1,0 +1,12 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div
+    *ngIf="currentQuestion$ | async as question"
+    class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none"
+  >
+    <app-question
+      [game]="currentGame$ | async"
+      [question]="question"
+      (submitAnswer)="onSubmitAnswer($event)"
+    ></app-question>
+  </div>
+</div>

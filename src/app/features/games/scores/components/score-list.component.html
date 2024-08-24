@@ -1,0 +1,27 @@
+<ul role="list" class="divide-y divide-gray-100">
+  <li
+    *ngFor="let score of scores; first as isFirst; index as i"
+    class="flex justify-between py-5 gap-x-6"
+  >
+    <div class="flex items-center min-w-0 gap-x-4">
+      <div class="flex-auto min-w-0">
+        <p class="text-sm font-semibold leading-6 text-gray-900">
+          {{ score.name }}
+        </p>
+        <p class="mt-1 text-xs leading-5 text-gray-500">
+          {{ score.score }}
+          {{ score.score === 1 ? "correct answer" : "correct answers" }}
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <img
+        *ngIf="isFirst"
+        class="w-16 h-16 mx-auto"
+        src="https://tailwindui.com/img/ecommerce/icons/icon-warranty-simple.svg"
+        alt=""
+      />
+    </div>
+  </li>
+</ul>

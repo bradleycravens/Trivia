@@ -1,0 +1,56 @@
+<form [formGroup]="form" class="relative flex flex-col" (ngSubmit)="onSubmit()">
+  <div class="flex items-center">
+    <!-- Question -->
+    <h1 class="mb-3 text-2xl text-indigo-900 w-[92%] title">
+      {{ question.question }}
+    </h1>
+
+    <!-- Timer -->
+    <div class="absolute top-0 right-0 w-10 h-10 m-auto text-center">
+      <div
+        #countdownNumber
+        class="inline-block font-medium leading-10 text-indigo-900"
+      ></div>
+      <svg class="absolute top-0 right-0 w-10 h-10 circle-svg">
+        <circle #circle class="circle" r="18" cx="20" cy="20"></circle>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Options -->
+  <div class="-space-y-px bg-white rounded-md">
+    <label
+      *ngFor="
+        let option of question.options;
+        index as i;
+        first as isFirst;
+        last as isLast
+      "
+      class="relative flex p-4 border cursor-pointer focus:outline-none"
+      [class.rounded-tl-md]="isFirst"
+      [class.rounded-tr-md]="isFirst"
+      [class.rounded-bl-md]="isLast"
+      [class.rounded-br-md]="isLast"
+      [class.active-answer]="form.controls.answer.value === i"
+      [class.border-gray-200]="form.controls.answer.value !== i"
+    >
+      <input
+        type="radio"
+        [value]="i"
+        formControlName="answer"
+        class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer border-gray-300 text-indigo-600 focus:ring-indigo-600 focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+      />
+      <span
+        class="ml-3"
+        [class.text-indigo-900]="form.controls.answer.value === i"
+        [class.text-gray-900]="form.controls.answer.value !== i"
+      >
+        {{ option }}
+      </span>
+    </label>
+  </div>
+
+  <button type="submit" class="mt-3 button" [disabled]="submitted">
+    Submit
+  </button>
+</form>

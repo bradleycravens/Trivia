@@ -1,0 +1,30 @@
+.active-answer {
+  @apply z-10 border-indigo-200 bg-indigo-50;
+}
+
+.circle-svg {
+  transform: rotateY(-180deg) rotateZ(-90deg);
+
+  circle {
+    fill: white;
+  }
+
+  .circle {
+    fill: none;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    stroke-dasharray: 113px;
+    stroke-dashoffset: 0px;
+    stroke: rgb(49 46 129);
+    animation: countdown 30s linear infinite forwards;
+  }
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 113px;
+  }
+  to {
+    stroke-dashoffset: 0px;
+  }
+}

@@ -1,13 +1,28 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import { ConnectionService } from './core/connection.service';
+import { LiveFeedService } from './features/live-feed/live-feed.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'trivia-game';
+  title = 'Cap Table Chaos';
+
+  connectionService = inject(ConnectionService);
+
+  liveFeedService = inject(LiveFeedService);
+
+  name = Date.now().toString();
+
+  ngOnInit() {
+    this.connectionService.connect(this.name);
+  }
+
+  onSearchLiveFeed(value: string) {
+    this.liveFeedService.search(value);
+  }
 }
