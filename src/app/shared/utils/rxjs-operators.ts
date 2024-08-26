@@ -11,6 +11,8 @@ export const prepare = <T>(
     });
 };
 
+// Ended up not using this since local development loading times
+// are so quick it made it just mainly flicker
 /**
  * RxJs operator for contextual loading indications without explicitly flipping the loading
  * flag. Updates the subject to true upon subscription to the actual source stream then flips it to

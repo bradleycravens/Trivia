@@ -19,9 +19,9 @@ import {
   GameQuestionPayload,
   GameCountdownPayload,
 } from '@models/game-events';
+import { update } from '@utils/rxjs-operators';
 import { BASE_URL } from '@injectors/base-url';
 import { EventService } from '@core/event.service';
-import { indicate, update } from '@utils/rxjs-operators';
 import { ActiveGame, Game, GameState } from '@models/game';
 import { ConnectionService } from '@core/connection.service';
 
@@ -49,11 +49,6 @@ export class GamesService {
 
   scores$ = new BehaviorSubject<Score[]>(null);
 
-  // Loaders
-  gamesLoading$ = new BehaviorSubject<boolean>(false);
-  createGameLoading$ = new BehaviorSubject<boolean>(false);
-  joinGameLoading$ = new BehaviorSubject<boolean>(false);
-
   init(): void {
     this.getGames().subscribe();
     this.initListeners();
@@ -63,7 +58,6 @@ export class GamesService {
   getGames(): Observable<Map<string, Game>> {
     return this.http.get<Game[]>(`${this.baseUrl}/games`).pipe(
       map((games) => new Map(games.map((game) => [game.id, game]))),
-      indicate(this.gamesLoading$),
       update(this.games$)
     );
   }
@@ -76,7 +70,6 @@ export class GamesService {
       .pipe(
         tap((event) => this.updateGameList(event)),
         map((event) => this.mapToActiveGame(event)),
-        indicate(this.createGameLoading$),
         update(this.currentGame$)
       );
   }
@@ -89,7 +82,6 @@ export class GamesService {
       .pipe(
         tap((event) => this.updateGameList(event)),
         map((event) => this.mapToActiveGame(event)),
-        indicate(this.joinGameLoading$),
         update(this.currentGame$)
       );
   }
@@ -101,7 +93,6 @@ export class GamesService {
       .listenOnce<GameEvent<PlayerReadyPayload>>(GameEventType.PlayerReady)
       .pipe(
         map((event) => this.updatePlayersReady(event)),
-        indicate(this.joinGameLoading$),
         update(this.currentGame$)
       );
   }
@@ -109,9 +100,9 @@ export class GamesService {
   startGame(payload: PlayerCommandStart): Observable<any> {
     this.connectionService.sendMessage(payload, PlayerCommandType.Start);
 
-    return this.connectionService
-      .listenOnce<GameEvent<{}>>(GameEventType.Start)
-      .pipe(indicate(this.joinGameLoading$));
+    return this.connectionService.listenOnce<GameEvent<{}>>(
+      GameEventType.Start
+    );
   }
 
   answerQuestion(payload: PlayerCommandAnswer) {

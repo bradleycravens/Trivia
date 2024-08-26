@@ -6,7 +6,6 @@ import {
   PlayerCommandJoin,
   PlayerCommandReady,
   PlayerCommandStart,
-  PlayerCommandCreate,
 } from '@models/player-commands';
 import { GamesService } from '../games.service';
 import { CreateGameComponent } from './components/create-game/create-game.component';
@@ -32,15 +31,14 @@ export class GameListComponent {
 
   countdown$ = this.gamesService.countdown$;
 
-  gamesLoading$ = this.gamesService.gamesLoading$;
-  createGameLoading$ = this.gamesService.createGameLoading$;
-
   ngOnInit(): void {
     this.gamesService.init();
   }
 
   onCreateGame() {
-    const dialogRef = this.matDialog.open(CreateGameComponent, { width: '500px' });
+    const dialogRef = this.matDialog.open(CreateGameComponent, {
+      width: '500px',
+    });
 
     dialogRef.afterClosed().subscribe((create) => {
       if (create) this.gamesService.createGame(create).subscribe();

@@ -21,8 +21,6 @@ import { ActiveGame } from '@models/game';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameTableHeaderComponent {
-  @Input() loading: boolean;
-
   @Input() currentGame: ActiveGame;
 
   @Input() currentPlayer: string;

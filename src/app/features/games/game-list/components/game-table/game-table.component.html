@@ -79,9 +79,6 @@
   </tbody>
 </table>
 
-<div
-  *ngIf="games.length === 0 && !gamesLoading"
-  class="flex items-center justify-center w-full"
->
+<div *ngIf="games.length === 0" class="flex items-center justify-center w-full">
   No games found!
 </div>

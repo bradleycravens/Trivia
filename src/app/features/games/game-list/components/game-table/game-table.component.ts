@@ -20,8 +20,6 @@ export class GameTableComponent {
 
   @Input() currentGame: ActiveGame;
 
-  @Input() gamesLoading: boolean;
-
   @Output() joinGame = new EventEmitter<PlayerCommandJoin>();
 
   loaders = new Array(5);

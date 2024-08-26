@@ -2,7 +2,6 @@
   <app-game-table-header
     [currentGame]="currentGame$ | async"
     [currentPlayer]="currentPlayer$ | async"
-    [loading]="createGameLoading$ | async"
     [countdown]="countdown$ | async"
     (createGame)="onCreateGame()"
     (readyForGame)="onReady($event)"
@@ -15,7 +14,6 @@
         <app-game-table
           [games]="games$ | async"
           [currentGame]="currentGame$ | async"
-          [gamesLoading]="gamesLoading$ | async"
           (joinGame)="onJoinGame($event)"
         ></app-game-table>
       </div>
