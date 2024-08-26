@@ -118,6 +118,11 @@ export class GamesService {
     this.connectionService.sendMessage(payload, PlayerCommandType.Answer);
   }
 
+  reset() {
+    this.currentGame$.next(null);
+    this.currentQuestion$.next(null);
+  }
+
   private initListeners() {
     this.eventService.externalGameUpdate$
       .pipe(switchMap(() => this.getGames()))
@@ -141,13 +146,17 @@ export class GamesService {
 
     this.eventService.gameCountdown$.subscribe((event) => {
       this.startCountdown(event, () => {
-        this.router.navigate(['game', this.currentGame$.value.id]);
+        if (this.currentGame$.value) {
+          this.router.navigate(['game', this.currentGame$.value.id]);
+        }
       });
     });
 
     this.eventService.gameCountdown$.subscribe((event) => {
       this.startCountdown(event, () => {
-        this.router.navigate(['game', this.currentGame$.value.id]);
+        if (this.currentGame$.value) {
+          this.router.navigate(['game', this.currentGame$.value.id]);
+        }
       });
     });
 
@@ -157,9 +166,10 @@ export class GamesService {
     });
 
     this.eventService.gameEnd$.subscribe((event) => {
-      debugger;
       this.scores$.next(event.payload.scores);
-      this.router.navigate(['game', this.currentGame$.value.id, 'scores']);
+      if (this.currentGame$.value) {
+        this.router.navigate(['game', this.currentGame$.value.id, 'scores']);
+      }
     });
   }
 

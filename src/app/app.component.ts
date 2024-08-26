@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
+import { playerNames } from '@models/player';
+
 import { ConnectionService } from './core/connection.service';
 import { LiveFeedService } from './features/live-feed/live-feed.service';
 
@@ -16,10 +18,10 @@ export class AppComponent {
 
   liveFeedService = inject(LiveFeedService);
 
-  name = Date.now().toString();
-
   ngOnInit() {
-    this.connectionService.connect(this.name);
+    const randomName =
+      playerNames[Math.floor(Math.random() * playerNames.length)];
+    this.connectionService.connect(randomName);
   }
 
   onSearchLiveFeed(value: string) {

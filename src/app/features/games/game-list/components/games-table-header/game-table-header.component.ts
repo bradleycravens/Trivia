@@ -29,7 +29,7 @@ export class GameTableHeaderComponent {
 
   @Input() countdown: number;
 
-  @Output() createGame = new EventEmitter<PlayerCommandCreate>();
+  @Output() createGame = new EventEmitter<void>();
 
   @Output() readyForGame = new EventEmitter<PlayerCommandReady>();
 
@@ -44,7 +44,7 @@ export class GameTableHeaderComponent {
   }
 
   onCreate() {
-    this.createGame.emit({ name: Date.now().toString(), question_count: 1 });
+    this.createGame.emit();
   }
 
   onReady() {

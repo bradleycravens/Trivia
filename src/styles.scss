@@ -1,3 +1,6 @@
+@use "@angular/material" as mat;
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,13 +8,10 @@
 html,
 body {
   height: 100%;
-}
-body {
   margin: 0;
-  // font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.title {
+h1.title {
   font-family: "Bungee", sans-serif;
   font-weight: 400;
   font-style: normal;

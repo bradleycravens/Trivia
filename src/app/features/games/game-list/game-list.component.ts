@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
 
 import {
@@ -8,6 +9,7 @@ import {
   PlayerCommandCreate,
 } from '@models/player-commands';
 import { GamesService } from '../games.service';
+import { CreateGameComponent } from './components/create-game/create-game.component';
 
 @Component({
   selector: 'app-game-list',
@@ -17,6 +19,8 @@ import { GamesService } from '../games.service';
 })
 export class GameListComponent {
   gamesService = inject(GamesService);
+
+  matDialog = inject(MatDialog);
 
   games$ = this.gamesService.games$.pipe(
     map((games) => Array.from(games, ([_, value]) => value))
@@ -35,8 +39,12 @@ export class GameListComponent {
     this.gamesService.init();
   }
 
-  onCreateGame(create: PlayerCommandCreate) {
-    this.gamesService.createGame(create).subscribe();
+  onCreateGame() {
+    const dialogRef = this.matDialog.open(CreateGameComponent, { width: '500px' });
+
+    dialogRef.afterClosed().subscribe((create) => {
+      if (create) this.gamesService.createGame(create).subscribe();
+    });
   }
 
   onJoinGame(join: PlayerCommandJoin) {

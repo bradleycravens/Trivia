@@ -4,7 +4,7 @@
     [currentPlayer]="currentPlayer$ | async"
     [loading]="createGameLoading$ | async"
     [countdown]="countdown$ | async"
-    (createGame)="onCreateGame($event)"
+    (createGame)="onCreateGame()"
     (readyForGame)="onReady($event)"
     (startGame)="onStartGame($event)"
   ></app-game-table-header>

@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Create a game</h1>
+
+<mat-dialog-content>
+  <form [formGroup]="formGroup" class="flex flex-col">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Question Count</mat-label>
+      <input type="number" max="10" matInput formControlName="questionCount" />
+      <mat-error>Please enter a number equal to or less than 10</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="flex justify-end w-full mr-4">
+    <button mat-button (click)="onNoOp()">Cancel</button>
+    <button mat-button (click)="onCreate()">Create</button>
+  </div>
+</mat-dialog-actions>

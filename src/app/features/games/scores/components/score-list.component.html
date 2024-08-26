@@ -17,7 +17,7 @@
 
     <div>
       <img
-        *ngIf="isFirst"
+        *ngIf="isFirst || score.score === scores[0].score"
         class="w-16 h-16 mx-auto"
         src="https://tailwindui.com/img/ecommerce/icons/icon-warranty-simple.svg"
         alt=""
